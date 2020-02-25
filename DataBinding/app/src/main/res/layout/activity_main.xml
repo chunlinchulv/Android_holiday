@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <!--<variable
+            name="user"
+            type="com.example.databinding.bean.UserBean" />
+        <variable
+            name="str"
+            type="String" />&lt;!&ndash;默认值为一个空的字符串&ndash;&gt;
+        <variable
+            name="age"
+            type="int" />&lt;!&ndash;默认值是0&ndash;&gt;-->
+
+        <!--引入一些高级变量-->
+        <!--<import type="java.util.List" />
+        <import type="java.util.Map" />
+        <variable
+            name="list"
+            type="List&lt;String&gt;" />&lt;!&ndash;这里面的<>不能出现再这里，应该使用转义字符代替&ndash;&gt;
+        <variable
+            name="map"
+            type="Map&lt;String,Object&gt;" />
+        <variable
+            name="array"
+            type="String[]" />-->
+
+        <!--设置别名alias-->
+        <!--<import type="com.example.databinding.bean.UserBean" />
+        <import type="com.example.databinding.UserBean" alias="UserBean2" />
+        <variable
+            name="user"
+            type="UserBean" />
+        <variable
+            name="user2"
+            type="UserBean2" />-->
+
+        <!--include中的使用-->
+        <!--<variable
+            name="user"
+            type="com.example.databinding.bean.UserBean" />-->
+
+        <!--布局中引入OnClickListener-->
+        <!--<variable
+            name="clickListener"
+            type="android.view.View.OnClickListener" />-->
+
+        <!--方法调用-->
+        <variable
+            name="handler"
+            type="com.example.databinding.handler.OnClickHandler" />
+    </data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="15dp"
+        android:gravity="center"
+        android:orientation="vertical">
+        <!--<TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{user.name}"/>
+        &lt;!&ndash;这里的age是int类型，要转换成String类型，否则会出现运行时异常&ndash;&gt;
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.valueOf(user.age)}"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{str}"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.valueOf(age)}"/>-->
+        <!--定义高级变量-->
+        <!--<TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{list[0]}"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{list.get(1)}"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{map[`key0`]}"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{map.get(`key1`)}"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{array[0]}"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{array[1]}"/>-->
+
+        <!--设置别名alias-->
+        <!--<TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{`姓名：`+user.name}"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{`user2:`+user2.content}"/>-->
+
+        <!--include中的使用-->
+        <!--<include layout="@layout/name"
+            app:user="@{user}"/>
+        <include layout="@layout/contact"
+            app:user="@{user}"/>-->
+
+        <!--布局中引入nClickListener-->
+        <!--<Button
+            android:id="@+id/button_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="按钮1"
+            android:onClick="@{clickListener}"/>
+        <Button
+            android:id="@+id/button_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="按钮2"
+            android:onClick="@{clickListener}"/>-->
+
+        <!--调用方法-->
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{handler::onClickFriend}"/>
+    </LinearLayout>
+</layout>

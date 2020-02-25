@@ -1,0 +1,63 @@
+//判断集成模式还是组件模式，是集成模式就调用application依赖库，是组件模式就调用library依赖库
+if (isRunAlone.toBoolean()) {
+    apply plugin: 'com.android.application'
+} else {
+    apply plugin: 'com.android.library'
+}
+android {
+    compileSdkVersion compile_sdk_version.toInteger()
+
+
+    defaultConfig {
+        //组件模式下才使用applicationid
+        if (isRunAlone.toBoolean()) {
+            applicationId "com.loong.login"
+        }
+        minSdkVersion min_sdk_version.toInteger()
+        targetSdkVersion target_sdt_version.toInteger()
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        //Arouter相关
+        /*javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [ moduleName : project.getName() ]
+            }
+        }*/
+    }
+
+    //设置不同状态下（组件化模式/集成模式）用的注册表文件
+    sourceSets {
+        main {
+            if (isRunAlone.toBoolean()) {//将string类型转换成布尔类型
+                manifest.srcFile 'src/main/manifest/AndroidManifest.xml'//如果要能单独运行，就用有入口活动的注册文件
+            } else {
+                manifest.srcFile 'src/main/AndroidManifest.xml'//该文件没有活动入口，一个application只能有一个入口，在集成模式下，入口放在app中
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation project (':base')
+    //ARouter相关
+/*
+    annotationProcessor 'com.alibaba:arouter-compiler:1.1.4'
+*/
+}

@@ -1,0 +1,60 @@
+apply plugin: 'com.android.library'
+
+//控制组件模式和集成模式
+if (rootProject.ext.isAndroidApplication) {
+    apply plugin: 'com.android.application'
+} else {
+    apply plugin: 'com.android.library'
+}
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion "28.0.3"
+
+
+    defaultConfig {
+        /*if (!rootProject.ext.isAndroidApplication) {
+            //组件模式下设置applicationId
+            applicationId "com.example.moduleda"
+        }*/
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    resourcePrefix "module_a_"
+
+    sourceSets {
+        main {
+            if (!rootProject.ext.isAndroidApplication) {//为true时为组件模式
+                manifest.srcFile 'src/main/module/AndroidManifest.xml'
+            } else {
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+            }
+            java {
+                //排除java/module文件夹下的所有文件
+                exclude '*module'
+            }
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation project(':basemodule')
+}
